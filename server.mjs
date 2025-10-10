@@ -3,7 +3,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from "./db/conn.mjs";
 import { globalErr, log } from "./middleware/middleware.mjs";
-// import userRoutes from "./routes/userRoutes.mjs";
+import userRoutes from "./routes/userRoutes.mjs";
 
 
 // Setups
@@ -17,13 +17,13 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(log);
-// app.use(cors());
+app.use(cors());
 
 //Routes
-
+app.use("/api/user", userRoutes);
 
 // Err Handling Middleware
-
+app.use(globalErr);
 
 // Listener
 app.listen(PORT, () => {
