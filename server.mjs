@@ -2,6 +2,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from "./db/conn.mjs";
+import { globalErr, log } from "./middleware/middleware.mjs";
+// import userRoutes from "./routes/userRoutes.mjs";
 
 
 // Setups
@@ -13,7 +15,9 @@ const PORT = process.env.PORT || 3001;
 connectDB();
 
 // Middleware
-
+app.use(express.json());
+app.use(log);
+// app.use(cors());
 
 //Routes
 
