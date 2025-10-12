@@ -1,5 +1,6 @@
 // Import
 import express from 'express';
+import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import connectDB from "./db/conn.mjs";
 import { globalErr, log } from "./middleware/middleware.mjs";

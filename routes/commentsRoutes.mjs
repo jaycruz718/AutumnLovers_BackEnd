@@ -1,6 +1,5 @@
 import express from "express";
 import Comment from "../models/commentSchema.mjs";
-// import { comments } from "../dataSource/comments.mjs";
 
 const router = express.Router();
 
