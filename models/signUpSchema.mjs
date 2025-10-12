@@ -41,11 +41,6 @@ const signUpSchema = new mongoose.Schema(
     password2: {
       type: String,
       required: true,
-    },
-    
-    isAdmin: {
-      type: Boolean,
-      default: false,
     }
   },
   { timestamps: true }

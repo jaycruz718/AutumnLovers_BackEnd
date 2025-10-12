@@ -5,6 +5,7 @@ import connectDB from "./db/conn.mjs";
 import { globalErr, log } from "./middleware/middleware.mjs";
 import userRoutes from "./routes/userRoutes.mjs";
 import postRoutes from "./routes/postRoutes.mjs";
+import commentsRoutes from "./routes/commentsRoutes.mjs";
 
 
 // Setups
@@ -23,6 +24,7 @@ app.use(log);
 //Routes
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
+app.use("/api/comments", commentsRoutes);
 
 // Err Handling Middleware
 app.use(globalErr);
