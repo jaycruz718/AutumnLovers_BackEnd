@@ -1,5 +1,5 @@
 import express from "express";
-import Comment from "../models/commentSchema.mjs";
+import Comment from "../models/commentsSchema.mjs";
 
 const router = express.Router();
 
@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
     }
 
     const newComment = new Comment({
-      userId,
+      userId: Number(userId),
       title,
       content,
     });

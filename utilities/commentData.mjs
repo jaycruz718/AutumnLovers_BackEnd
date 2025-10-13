@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 import comments from "./commentData.mjs";
-import Comment from "../models/commentSchema.mjs";
+import Comment from "../models/commentsSchema.mjs";
 
 dotenv.config();
 
