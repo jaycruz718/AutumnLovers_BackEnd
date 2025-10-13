@@ -8,7 +8,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 const posts = [
   {
-    author: '652e2f3a4e7e6f5c12345678', // 👈 Use real User _id from your DB
+    author: '652e2f3a4e7e6f5c12345678', 
     title: "It's October First Ya!!!",
     content: "Today is the first day of October! I have already started to unpack my decorations...",
     createdAt: new Date(),

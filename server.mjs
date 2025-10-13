@@ -2,6 +2,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import bcrypt from 'bcryptjs';
 import connectDB from "./db/conn.mjs";
 import { globalErr, log } from "./middleware/middleware.mjs";
 import userRoutes from "./routes/userRoutes.mjs";

@@ -1,7 +1,7 @@
 // routes/signupRoute.mjs
 import { Router } from "express";
 import { check, validationResult } from "express-validator";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import signUp from "../models/signupSchema.mjs";
