@@ -13,7 +13,7 @@ router.get("/", async (req, res, next) => {
     if (author) query.author = author;
     if (title) query.title = new RegExp(title, "i");
 
-    const posts = await Post.find(query); // ✅ fixed
+    const posts = await Post.find(query); 
     res.json(posts);
   } catch (err) {
     next(err);

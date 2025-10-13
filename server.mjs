@@ -31,6 +31,10 @@ app.use("/api/comments", commentsRoutes);
 app.use(globalErr);
 
 // Listener
+app.get("/", (req, res) => {
+  res.send("Server is running! Use /api/post");
+});
+
 app.listen(PORT, () => {
     console.log(`Server Running on Port: ${PORT}`)
 });

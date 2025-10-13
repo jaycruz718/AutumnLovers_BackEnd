@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema({
     userId: {
-        type: Number, 
+        type: String, 
         required: true,
     },
     title: {
