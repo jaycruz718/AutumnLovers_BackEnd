@@ -1,5 +1,5 @@
 import User from "../models/userSchema.mjs";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
@@ -14,7 +14,11 @@ const registerUser = async (req, res) => {
   }
 
   try {
-    const { userName, email, password } = req.body;
+    const { userName, email, password, password2 } = req.body;
+
+    if (password !== password2) {
+      return res.status(400).json({ errors: [{ msg: "Passwords do not match"}] });
+    }
 
     let user = await User.findOne({ email });
 
@@ -103,7 +107,7 @@ const getUserInfo = async (req, res) => {
           jwt.sign(
             payload,
             process.env.jwtSecret,
-            { expiresIn: "6h" },
+            { expiresIn: "48h" },
             (err, token) => {
               if (err) throw err;
   

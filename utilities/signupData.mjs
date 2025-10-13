@@ -21,7 +21,7 @@ const adminUser = new User({
   isAdmin: true,
 });
 
-await User.deleteMany({}); // Optional: clears all users
+await User.deleteMany({}); 
 await adminUser.save();
 
 console.log("Admin user seeded!");
