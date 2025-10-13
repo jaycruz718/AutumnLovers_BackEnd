@@ -36,7 +36,7 @@ router.post("/", async (req, res, next) => {
     }
 
     const newComment = new Comment({
-      userId: Number(userId),
+      userId: mongoose.Schema.Types.ObjectId,
       title,
       content,
     });
