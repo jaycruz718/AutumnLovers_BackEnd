@@ -1,5 +1,5 @@
 import User from "../models/userSchema.mjs";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
