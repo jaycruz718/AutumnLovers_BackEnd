@@ -7,6 +7,7 @@ import { globalErr, log } from "./middleware/middleware.mjs";
 import userRoutes from "./routes/userRoutes.mjs";
 import postRoutes from "./routes/postRoutes.mjs";
 import commentsRoutes from "./routes/commentsRoutes.mjs";
+import signupRoutes from "./routes/signupRoutes.mjs";
 
 
 // Setups
@@ -26,6 +27,7 @@ app.use(log);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comments", commentsRoutes);
+app.use("/api/signup", signupRoutes);
 
 // Err Handling Middleware
 app.use(globalErr);

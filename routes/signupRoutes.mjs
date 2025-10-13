@@ -1,10 +1,10 @@
 // routes/signupRoute.mjs
 import { Router } from "express";
 import { check, validationResult } from "express-validator";
-import bcrypt from "bcryptjs";
+// import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import User from "../models/userSchema.mjs";
+import signUp from "../models/signupSchema.mjs";
 
 dotenv.config();
 
@@ -34,13 +34,13 @@ router.post(
 
     try {
       // Check if user already exists
-      let user = await User.findOne({ email });
+      let user = await signUp.findOne({ email });
       if (user) {
         return res.status(400).json({ errors: [{ msg: "User already exists" }] });
       }
 
       // Create new user
-      user = new User({
+      user = new signUp({
         userName,
         email,
         password,
