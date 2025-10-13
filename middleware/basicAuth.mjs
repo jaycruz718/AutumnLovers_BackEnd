@@ -16,7 +16,7 @@ export default function (req, res, next) {
 
     next();
   } catch (err) {
-    console.error(err.message);
+    console.error("JWT Error:", err.message);
     res.status(401).json({ errors: [{ msg: "Authentication Failed" }] });
   }
 }

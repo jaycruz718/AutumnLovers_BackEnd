@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema(
       unique: true,
       minlength: 4,
       lowercase: true,
+      trim: true,
     },
     
     email: {
@@ -15,6 +16,8 @@ const userSchema = new mongoose.Schema(
       required: true,
       unique: true,
       lowercase: true,
+      trim: true,
+      match: [/\S+@\S+\.\S+/, "Please enter a valid email"],
     },
 
     password: {
@@ -29,5 +32,8 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+userSchema.index({ email: 1 });
+userSchema.index({ userName: 1 });
 
 export default mongoose.model("User", userSchema);

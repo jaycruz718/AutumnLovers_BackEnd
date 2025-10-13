@@ -10,16 +10,16 @@ export default async function adminAuth(req, res, next) {
 
     
     if (!user)
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
+      return res.status(401).json({ errors: [{ msg: "Unauthorized!" }] });
 
     
     if (user.isAdmin) {
       next();
     } else {
-      throw new Error("Entry Denied!!!");
+      return res.status(403).json({ errors: [{ msg: "Access Denied!"}] });
     }
   } catch (err) {
     console.error(err);
-    res.status(403).json({ errors: [{ msg: err.message }] });
+    res.status(500).json({ errors: [{ msg: "Server error" }] });
   }
 }

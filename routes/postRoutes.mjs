@@ -1,4 +1,5 @@
 import express from "express";
+import adminAuth from "../middleware/adminAuth.mjs";
 import Post from "../models/postSchema.mjs";
 
 const router = express.Router();
@@ -23,7 +24,7 @@ router.get("/", async (req, res, next) => {
 // GET /api/post/:id
 router.get("/:id", async (req, res, next) => {
   try {
-    const post = await Post.findById(req.params.id); // ✅ fixed
+    const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).json({ error: "Post not found" });
     res.json(post);
   } catch (err) {
@@ -39,7 +40,7 @@ router.post("/", async (req, res, next) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const newPost = new Post({ author, title, content, tags }); // ✅ match schema
+    const newPost = new Post({ author, title, content, tags }); 
     const saved = await newPost.save();
     res.status(201).json(saved);
   } catch (err) {
@@ -50,7 +51,7 @@ router.post("/", async (req, res, next) => {
 // DELETE /api/post/:id
 router.delete("/:id", async (req, res, next) => {
   try {
-    const deleted = await Post.findByIdAndDelete(req.params.id); // ✅ fixed
+    const deleted = await Post.findByIdAndDelete(req.params.id); 
     if (!deleted) return res.status(404).json({ error: "Post not found" });
     res.json(deleted);
   } catch (err) {

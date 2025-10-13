@@ -1,5 +1,5 @@
 import User from "../models/userSchema.mjs";
-// import bcrypt from "bcryptjs";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
@@ -37,6 +37,7 @@ const registerUser = async (req, res) => {
     const payload = {
       user: {
         id: user._id,
+        isAdmin: user.isAdmin,
       },
     };
 
