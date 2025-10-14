@@ -1,4 +1,3 @@
-// routes/signupRoute.mjs
 import { Router } from "express";
 import { check } from "express-validator";
 import dotenv from "dotenv";

@@ -1,5 +1,6 @@
 // Import
 import express from 'express';
+import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
@@ -9,6 +10,7 @@ import userRoutes from "./routes/userRoutes.mjs";
 import postRoutes from "./routes/postRoutes.mjs";
 import commentsRoutes from "./routes/commentsRoutes.mjs";
 import signupRoutes from "./routes/signupRoutes.mjs";
+import contactRoutes from './routes/contact.mjs';
 
 
 // Setups
@@ -22,13 +24,14 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(log);
-//app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 
 //Routes
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comments", commentsRoutes);
 app.use("/api/signup", signupRoutes);
+app.use("/api/contact", contactRoutes);
 
 // Err Handling Middleware
 app.use(globalErr);
