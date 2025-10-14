@@ -10,7 +10,7 @@ import userRoutes from "./routes/userRoutes.mjs";
 import postRoutes from "./routes/postRoutes.mjs";
 import commentsRoutes from "./routes/commentsRoutes.mjs";
 import signupRoutes from "./routes/signupRoutes.mjs";
-import contactRoutes from './routes/contact.mjs';
+import contactRoutes from './routes/contactRoutes.mjs';
 import eventsRoutes from './routes/eventsRoutes.mjs';
 
 

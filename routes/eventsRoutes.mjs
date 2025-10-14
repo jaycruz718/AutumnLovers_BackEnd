@@ -1,9 +1,5 @@
 import express from 'express';
-import Event from '../models/Event.mjs';
-
-console.log("✅ Events route loaded.");
-console.log("Event model:", Event); // This will show if the model is undefined
-
+import Event from '../models/eventSchema.mjs';
 
 const router = express.Router();
 
@@ -30,17 +26,23 @@ router.get('/:id', async (req, res) => {
 
 // POST create a new event
 router.post('/', async (req, res) => {
+  console.log('Incoming POST /api/events');
+  console.log('Request body:', req.body);
+
   const { title, description, date } = req.body;
 
   if (!title || !description || !date) {
+    console.log('Missing fields');
     return res.status(400).json({ error: 'All fields are required.' });
   }
 
   try {
     const newEvent = new Event({ title, description, date });
     await newEvent.save();
+    console.log('Event saved:', newEvent);
     res.status(201).json(newEvent);
   } catch (err) {
+    console.error('Failed to save event:', err);
     res.status(500).json({ error: 'Failed to create event.' });
   }
 });
