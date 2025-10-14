@@ -11,6 +11,7 @@ import postRoutes from "./routes/postRoutes.mjs";
 import commentsRoutes from "./routes/commentsRoutes.mjs";
 import signupRoutes from "./routes/signupRoutes.mjs";
 import contactRoutes from './routes/contact.mjs';
+import eventsRoutes from './routes/eventsRoutes.mjs';
 
 
 // Setups
@@ -32,6 +33,8 @@ app.use("/api/post", postRoutes);
 app.use("/api/comments", commentsRoutes);
 app.use("/api/signup", signupRoutes);
 app.use("/api/contact", contactRoutes);
+app.use("/api/events", eventsRoutes); 
+
 
 // Err Handling Middleware
 app.use(globalErr);
