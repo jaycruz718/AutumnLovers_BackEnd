@@ -9,7 +9,6 @@ import { globalErr, log } from "./middleware/middleware.mjs";
 import userRoutes from "./routes/userRoutes.mjs";
 import postRoutes from "./routes/postRoutes.mjs";
 import commentsRoutes from "./routes/commentsRoutes.mjs";
-import signupRoutes from "./routes/signupRoutes.mjs";
 import contactRoutes from './routes/contactRoutes.mjs';
 import eventsRoutes from './routes/eventsRoutes.mjs';
 
@@ -31,7 +30,6 @@ app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
 app.use("/api/comments", commentsRoutes);
-app.use("/api/signup", signupRoutes);
 app.use("/api/contact", contactRoutes);
 app.use("/api/events", eventsRoutes); 
 

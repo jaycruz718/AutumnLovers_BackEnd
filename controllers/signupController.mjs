@@ -1,4 +1,4 @@
-import signUp from "../models/signupSchema.mjs";
+import User from "../models/userSchema.mjs";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -39,7 +39,7 @@ export const signupUser = async (req, res) => {
     // Hash password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
-    user.password2 = undefined; // You may omit saving password2
+    user.password2 = undefined; 
 
     await user.save();
 

@@ -1,26 +1,22 @@
 import { Router } from "express";
 import { check } from "express-validator";
-import userCTRL from "../controllers/userController.mjs";
 import auth from "../middleware/basicAuth.mjs";
+import userCTRL from "../controllers/userController.mjs";
 
 const router = Router();
 
-router
-    .route("/")
-    .post(
-        [
-            check("userName", "Please include a valid username").isLength({ min:4 }).trim().escape(),
-            check("password", "Password must be at least 6 characters long").isLength({ min: 6 }).trim().escape(),
+router.post(
+  "/",
+  [
+    check("userName", "Username must be at least 4 characters").isLength({ min: 4 }),
+    check("email", "Please include a valid email").isEmail(),
+    check("password", "Password must be at least 6 characters").isLength({ min: 6 }),
+    check("password2", "Confirm password must not be empty").notEmpty(),
+    check("password2", "Passwords do not match").custom((value, { req }) => value === req.body.password),
+  ],
+  userCTRL.registerUser
+);
 
-            check("email", "Email is required").notEmpty(),
-            check("email", "Please include a valid email").isEmail().normalizeEmail(),
-
-            check("password", "Password is required").notEmpty(),
-            check("password", "Password must be at least 6 characters").isLength({ min: 6 }),
-        ],
-        userCTRL.registerUser
-    );
-
-router.route("/me").get(auth, userCTRL.getUserInfo);
+router.get("/me", auth, userCTRL.getUserInfo);
 
 export default router;
