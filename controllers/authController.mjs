@@ -2,11 +2,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import { validationResult } from "express-validator";
-import signUp from "../models/signupSchema.mjs";
+import signUp from "../models/userSchema.mjs";
 
 dotenv.config();
 
-export const signupUser = async (req, res) => {
+export const loginUser = async (req, res) => {
   // Check validation errors from express-validator
   const errors = validationResult(req);
   if (!errors.isEmpty()) {

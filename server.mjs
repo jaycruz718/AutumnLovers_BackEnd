@@ -24,7 +24,8 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(log);
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+
 
 //Routes
 app.use("/api/user", userRoutes);

@@ -29,8 +29,6 @@ export const signupUser = async (req, res) => {
 
     // Create new user instance
     const user = new signUp({
-      firstName,
-      lastName,
       userName,
       email,
       password,

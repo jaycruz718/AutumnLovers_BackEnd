@@ -10,7 +10,7 @@ const registerUser = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
-  const { firstName, lastName, userName, email, password, password2 } = req.body;
+  const { userName, email, password, password2 } = req.body;
 
   if (password !== password2) {
     return res.status(400).json({ errors: [{ msg: "Passwords do not match" }] });
@@ -20,14 +20,12 @@ const registerUser = async (req, res) => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ errors: [{ msg: "User already exists" }] });
-    }
+    } 
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
     const user = new User({
-      firstName,
-      lastName,
       userName,
       email,
       password: hashedPassword,
@@ -76,10 +74,11 @@ const loginUser = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
-
+      
     const isMatch = await bcrypt.compare(password, user.password);
+    
     if (!isMatch) return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
-
+      
     const payload = { user: { id: user._id } };
 
     jwt.sign(
@@ -97,4 +96,4 @@ const loginUser = async (req, res) => {
   }
 };
 
-export default { registerUser, getUserInfo, loginUser };
+export { registerUser, getUserInfo, loginUser };

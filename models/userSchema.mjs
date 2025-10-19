@@ -4,20 +4,6 @@ import bcrypt from "bcryptjs";
 
 const userSchema = new mongoose.Schema(
   {
-    firstName: {
-      type: String,
-      required: true,
-      minlength: 2,
-      trim: true,
-      lowercase: true,
-    },
-    lastName: {
-      type: String,
-      required: true,
-      minlength: 2,
-      trim: true,
-      lowercase: true,
-    },
     userName: {
       type: String,
       required: true,
@@ -46,18 +32,18 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Optional: Auto-hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-  next();
-});
-
 // Optional: Match password during login
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
+
+// Optional: Auto-hash password before saving
+/* userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) return next();
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+}); */
 
 // Optional: Remove password from JSON responses
 userSchema.methods.toJSON = function () {
