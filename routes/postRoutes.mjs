@@ -4,7 +4,7 @@ import Post from "../models/postSchema.mjs";
 
 const router = express.Router();
 
-// GET /api/post?author=someId&title=foo
+// GET /api/post
 router.get("/", async (req, res, next) => {
   try {
     const { author, title } = req.query;
