@@ -1,18 +1,31 @@
 import { text } from "express";
 
-const commentsSchema = new mongoose.Schema({
-  postId: { type: Number, required: true },
-  user: { type: String, required: true},
-  text: { type: String, required: true },
-  createdAt: { type: Date, default: Date.now },
-});
+const commentsSchema = new mongoose.Schema(
+  {
+    postId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Post",
+      required: true,
+    },
+    userName: {
+      type: String,
+      default: "Anonymous",
+    },
+    context: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+  },
+  { timestamps: true }
+);
 
-export default [
+/* export default [
   {
     postId: 1,
     user: "ButtMan",
     text: "First comment",
-    createAt: "2025-10-30",
+    createdAt: "2025-10-30",
   },
   {
     postId: 2,
@@ -20,4 +33,7 @@ export default [
     text: "Second comment",
     createdAt: "2025-10-30",
   },
-];
+];*/
+
+const Comment = mongoose.model("Comment", commentsSchema);
+export default Comment;

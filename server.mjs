@@ -6,6 +6,8 @@ import dotenv from 'dotenv';
 import bcrypt from 'bcryptjs';
 import connectDB from "./db/conn.mjs";
 import { globalErr, log } from "./middleware/middleware.mjs";
+
+// Routes
 import userRoutes from "./routes/userRoutes.mjs";
 import postRoutes from "./routes/postRoutes.mjs";
 import commentsRoutes from "./routes/commentsRoutes.mjs";
