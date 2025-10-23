@@ -16,10 +16,10 @@ router.get("/", async (req, res, next) => {
 // GET comments for a post
 router.get("/:postId", async (req, res) => {
   try {
-    const comment = await Comment.find({ postId: req.params.id });
-    res.json(comment);
+    const comments = await Comment.find({ postId: req.params.postId });
+    res.json(comments);
   } catch (err) {
-    res.status(404).json({ error: "Failed to fetch comments" });
+    res.status(500).json({ error: "Failed to fetch comments" });
   }
 });
 
@@ -32,32 +32,15 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    //const newComment = await CommentModel.create({ postId, context, userName });
-    res.status(201).json(newComment);
+    const newComment = new Comment({ postId, userName, context });
+    const savedComment = await newComment.save();
+
+    res.status(201).json(savedComment);
     } catch (error) {
       console.error('Error creating comment:', error);
       res.status(500).json({ error: 'Internal Servor Error' });
     }
 });
-
-    /*const newComment = new Comment({
-      postId,
-      userName,
-      context,
-      createdAt,
-    });
-    await newComment.save();
-
-    res.status(201).json(newComment);
-  } catch (err){
-    res.status(500).json({ error: "Failed to add comment" });*/
-  
-
-    // const savedComment = await newComment.save();
-    // res.status(201).json(savedComment);
-  // } catch (err) {
-    // next(err);
- // }
 
 
 // DELETE /api/comments/:id

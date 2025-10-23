@@ -9,12 +9,11 @@ const commentsSchema = new mongoose.Schema(
     },
     userName: {
       type: String,
-      default: "Anonymous",
+      default: "Guest",
     },
     context: {
       type: String,
       required: true,
-      trim: true,
     },
   },
   { timestamps: true }
