@@ -10,7 +10,7 @@ export default function (req, res, next) {
     return res.status(401).json({ errors: [{ msg: "No Token, Auth Denied" }] });
 
   try {
-    const decoded = jwt.verify(token, process.env.jwtSecret);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     req.user = decoded.user;
 

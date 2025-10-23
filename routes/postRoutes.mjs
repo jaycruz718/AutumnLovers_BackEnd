@@ -34,19 +34,32 @@ router.get("/:id", async (req, res, next) => {
 
 // POST /api/post
 router.post("/", async (req, res, next) => {
-  try {
-    const { author, title, content, tags } = req.body;
-    if (!author || !title || !content) {
-      return res.status(400).json({ error: "Missing required fields" });
-    }
+  console.log('Incoming POST data:', req.body); 
 
-    const newPost = new Post({ author, title, content, tags }); 
+  const { author, title, content, tags } = req.body;
+
+  if (!author || !title || !content) {
+    return res.status(400).json({ error: "Missing required fields" });
+  }
+  try {
+    const newPost = new Post({ author, title, content, tags });
     const saved = await newPost.save();
     res.status(201).json(saved);
-  } catch (err) {
+  } catch (err){
     next(err);
   }
 });
+
+// PUT /api/put
+router.put("/", async (req, res, next) => {
+  try {
+    const put = await Post.findByIdAndUpdate(req.params.id, req.body, {new : true});
+    if(!put)return res.status(404).json({ error: "Post not found" })
+    res.json(put)
+  } catch (err){
+    next(err);
+  }
+})
 
 // DELETE /api/post/:id
 router.delete("/:id", async (req, res, next) => {

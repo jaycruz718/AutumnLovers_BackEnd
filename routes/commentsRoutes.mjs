@@ -13,39 +13,42 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// GET /api/comments/:id
-router.get("/:id", async (req, res, next) => {
+// GET comments for a post
+router.get("/:postId", async (req, res) => {
   try {
-    const comment = await Comment.findById(req.params.id);
-    if (!comment) {
-      return res.status(404).json({ error: "Comment not found" });
-    }
-    res.json(comment);
+    const comment = await Comment.find({vpostId: req.params.id });
+    res.json(comments);
   } catch (err) {
-    next(err);
+    res.status(404).json({ error: "Failed to fetch comments" });
   }
 });
 
-// POST /api/comments
-router.post("/", async (req, res, next) => {
+// POST a new comment
+router.post("/", async (req, res) => {
   try {
-    const { userId, title, content } = req.body;
+    const { postId, user, text } = req.body;
 
-    if (!userId || !title || !content) {
+    if (!postId || !text) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
     const newComment = new Comment({
-      userId: mongoose.Schema.Types.ObjectId,
-      title,
-      content,
+      postId,
+      user, 
+      text
     });
+    await newComment.save();
 
-    const savedComment = await newComment.save();
-    res.status(201).json(savedComment);
-  } catch (err) {
-    next(err);
+    res.status(201).json(newComment);
+  } catch (err){
+    res.status(500).json({ error: "Failed to add comment" });
   }
+
+    // const savedComment = await newComment.save();
+    // res.status(201).json(savedComment);
+  // } catch (err) {
+    // next(err);
+ // }
 });
 
 // DELETE /api/comments/:id
