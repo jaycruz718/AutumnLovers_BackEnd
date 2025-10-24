@@ -50,16 +50,16 @@ router.post("/", async (req, res, next) => {
   }
 });
 
-// PUT /api/put
-router.put("/", async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
-    const put = await Post.findByIdAndUpdate(req.params.id, req.body, {new : true});
-    if(!put)return res.status(404).json({ error: "Post not found" })
-    res.json(put)
-  } catch (err){
+    const updatedPost = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!updatedPost) return res.status(404).json({ error: "Post not found" });
+    res.json(updatedPost);
+  } catch (err) {
     next(err);
   }
-})
+});
+
 
 // DELETE /api/post/:id
 router.delete("/:id", async (req, res, next) => {
