@@ -30,6 +30,28 @@ router.post(
   loginUser
 );
 
+// Add this to your router
+router.put("/me", auth, async (req, res) => {
+  try {
+    const { userName, email, bio } = req.body;
+
+    // req.user should be set by auth middleware
+    const user = await user.findByIdAndUpdate(
+      req.user.id,         // from token
+      { userName, email, bio },
+      { new: true }
+    );
+
+    if (!user) return res.status(404).json({ msg: "User not found" });
+
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Server error");
+  }
+});
+
+
 router.get("/me", auth, getUserInfo);
 
 export default router;
