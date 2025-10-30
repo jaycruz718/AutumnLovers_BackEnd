@@ -1,4 +1,5 @@
 import User from "../models/userSchema.mjs";
+//import Profile from "../models/profileSchema.mjs";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
@@ -96,4 +97,34 @@ const loginUser = async (req, res) => {
   }
 };
 
-export { registerUser, getUserInfo, loginUser };
+// ----- New controller for updating profile -----
+const updateUserProfile = async (req, res) => {
+  const { userName, email, birthday, bio, avatar, social } = req.body;
+
+  const updatedFields = {};
+  if (userName) updatedFields.userName = userName;
+  if (email) updatedFields.email = email;
+  if (birthday) updatedFields.birthday = birthday;
+  if (bio) updatedFields.bio = bio;
+  if (avatar) updatedFields.avatar = avatar;
+  if (social) updatedFields.social = social;
+
+  try {
+    const user = await User.findByIdAndUpdate(
+      req.user.id,
+      { $set: updatedFields },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    if (!user) return res.status(404).json({ errors: [{ msg: "User not found" }] });
+
+    res.json(user);
+  } catch (err) {
+    console.error("Update Profile Error:", err.message);
+    res.status(500).json({ errors: [{ msg: "Server Error" }] });
+  }
+};
+
+// ----- Export all controllers -----
+export { registerUser, getUserInfo, loginUser, updateUserProfile };
+

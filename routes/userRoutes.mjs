@@ -2,10 +2,11 @@
 import { Router } from "express";
 import { check } from "express-validator";
 import auth from "../middleware/basicAuth.mjs";
+import User from "../models/userSchema.mjs";
 
 // Import only what you need:
 import { signupUser } from "../controllers/signupController.mjs";  // for registration
-import { registerUser, getUserInfo, loginUser } from "../controllers/userController.mjs";    // for user info
+import { getUserInfo, updateUserProfile, registerUser, loginUser } from "../controllers/userController.mjs";   // for user info
 
 const router = Router();
 
@@ -30,28 +31,15 @@ router.post(
   loginUser
 );
 
-// Add this to your router
-router.put("/me", auth, async (req, res) => {
-  try {
-    const { userName, email, bio } = req.body;
+// Updates Profile
+router.put("/me", auth, updateUserProfile);
 
-    // req.user should be set by auth middleware
-    const user = await user.findByIdAndUpdate(
-      req.user.id,         // from token
-      { userName, email, bio },
-      { new: true }
-    );
-
-    if (!user) return res.status(404).json({ msg: "User not found" });
-
-    res.json(user);
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Server error");
-  }
-});
-
-
+// Get User Infor
 router.get("/me", auth, getUserInfo);
+
+// Placeholder Route
+router.get("/api/user", (req, res) => {
+  res.status(200).json({ message: "User data "});
+})
 
 export default router;

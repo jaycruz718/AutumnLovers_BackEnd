@@ -1,5 +1,6 @@
 import express from "express";
 import adminAuth from "../middleware/adminAuth.mjs";
+import { getUserInfo } from "../controllers/userController.mjs";
 import Post from "../models/postSchema.mjs";
 
 const router = express.Router();
